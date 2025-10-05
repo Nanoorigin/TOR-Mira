@@ -7,7 +7,7 @@ namespace TheOtherRoles.Options.General
     internal class GameplaySettings : AbstractOptionGroup
     {
         public override string GroupName => "Gameplay Settings";
-        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic;
+        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic || TORMapOptions.GameMode == CustomGamemodes.Guesser;
         public override uint GroupPriority => 1;
 
         [ModdedNumberOption("Number Of Meetings (excluding Mayor meeting)", min: 0, max: 15, increment: 1f)]

@@ -11,6 +11,7 @@ using TheOtherRoles.Utilities;
 using UnityEngine;
 using Innersloth.Assets;
 using TMPro;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch]

@@ -13,6 +13,7 @@ using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Options.General;
+using TheOtherRoles.Options.GuesserMode;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
 using UnityEngine;
@@ -715,7 +716,7 @@ namespace TheOtherRoles
                 Sidekick.wasSpy = wasSpy;
                 Sidekick.wasImpostor = wasImpostor;
                 if (player == PlayerControl.LocalPlayer) SoundEffectsManager.play("jackalSidekick");
-                if (HandleGuesser.isGuesserGm && CustomOptionHolder.guesserGamemodeSidekickIsAlwaysGuesser.getBool() && !HandleGuesser.isGuesser(targetId))
+                if (HandleGuesser.isGuesserGm && OptionGroupSingleton<GuesserForceSettings>.Instance.GuesserGamemodeSidekickIsAlwaysGuesser && !HandleGuesser.isGuesser(targetId))
                     setGuesserGm(targetId);
             }
             Jackal.canCreateSidekick = false;
@@ -1109,7 +1110,7 @@ namespace TheOtherRoles
             if (target == Sidekick.sidekick) {
                 Sidekick.sidekick = thief;
                 Jackal.formerJackals.Add(target);
-                if (HandleGuesser.isGuesserGm && CustomOptionHolder.guesserGamemodeSidekickIsAlwaysGuesser.getBool() && !HandleGuesser.isGuesser(thief.PlayerId))
+                if (HandleGuesser.isGuesserGm && OptionGroupSingleton<GuesserForceSettings>.Instance.GuesserGamemodeSidekickIsAlwaysGuesser && !HandleGuesser.isGuesser(thief.PlayerId))
                     setGuesserGm(thief.PlayerId);
             }
             if (target == Guesser.evilGuesser) Guesser.evilGuesser = thief;

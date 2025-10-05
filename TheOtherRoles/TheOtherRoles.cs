@@ -152,8 +152,6 @@ namespace TheOtherRoles
                 logShowsTime = CustomOptionHolder.portalmakerLogHasTime.getBool();
                 canPortalFromAnywhere = CustomOptionHolder.portalmakerCanPortalFromAnywhere.getBool();
             }
-
-
         }
 
         public static class Mayor {

@@ -4,6 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using MiraAPI.GameOptions;
 using Reactor.Utilities.Extensions;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Options.General;
 using TheOtherRoles.Utilities;

@@ -7,6 +7,8 @@ using Hazel;
 using MiraAPI.GameOptions;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
+using TheOtherRoles.Options.GuesserMode;
+using TheOtherRoles.Options.HideNSeek;
 using TheOtherRoles.Options.PropHunt;
 using TheOtherRoles.Utilities;
 using UnityEngine;
@@ -25,7 +27,7 @@ namespace TheOtherRoles.Patches
     class LegacyGameOptionsGetAdjustedNumImpostorsPatch {
         public static void Postfix(ref int __result) {
             if (TORMapOptions.GameMode == CustomGamemodes.HideNSeek || TORMapOptions.GameMode == CustomGamemodes.PropHunt) {
-                int impCount = TORMapOptions.GameMode == CustomGamemodes.HideNSeek ? Mathf.RoundToInt(CustomOptionHolder.hideNSeekHunterCount.getFloat()) : Mathf.RoundToInt(OptionGroupSingleton<HunterSettings>.Instance.PropHuntNumberOfHunters);
+                int impCount = TORMapOptions.GameMode == CustomGamemodes.HideNSeek ? Mathf.RoundToInt(OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHunterCount) : Mathf.RoundToInt(OptionGroupSingleton<HunterSettings>.Instance.PropHuntNumberOfHunters);
                 __result = impCount; ; // Set Imp Num
             } else if (GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.Normal) {  // Ignore Vanilla impostor limits in TOR Games.
                 __result = Mathf.Clamp(GameOptionsManager.Instance.CurrentGameOptions.NumImpostors, 1, 3);
@@ -423,7 +425,7 @@ namespace TheOtherRoles.Patches
             if (modifierMin > modifierMax) modifierMin = modifierMax;
             int modifierCountSettings = rnd.Next(modifierMin, modifierMax + 1);
             List<PlayerControl> players = PlayerControl.AllPlayerControls.ToArray().ToList();
-            if (isGuesserGamemode && !CustomOptionHolder.guesserGamemodeHaveModifier.getBool())
+            if (isGuesserGamemode && !OptionGroupSingleton<GuesserGeneralSettings>.Instance.GuesserGamemodeHaveModifier)
                 players.RemoveAll(x => GuesserGM.isGuesser(x.PlayerId));
             int modifierCount = Mathf.Min(players.Count, modifierCountSettings);
 
@@ -496,9 +498,9 @@ namespace TheOtherRoles.Patches
             impPlayer.RemoveAll(x => !x.Data.Role.IsImpostor);
             neutralPlayer.RemoveAll(x => !TORHelpers.isNeutral(x));
             crewPlayer.RemoveAll(x => x.Data.Role.IsImpostor || TORHelpers.isNeutral(x));
-            assignGuesserGamemodeToPlayers(crewPlayer, Mathf.RoundToInt(CustomOptionHolder.guesserGamemodeCrewNumber.getFloat()));
-            assignGuesserGamemodeToPlayers(neutralPlayer, Mathf.RoundToInt(CustomOptionHolder.guesserGamemodeNeutralNumber.getFloat()), CustomOptionHolder.guesserForceJackalGuesser.getBool(), CustomOptionHolder.guesserForceThiefGuesser.getBool());
-            assignGuesserGamemodeToPlayers(impPlayer, Mathf.RoundToInt(CustomOptionHolder.guesserGamemodeImpNumber.getFloat()));
+            assignGuesserGamemodeToPlayers(crewPlayer, Mathf.RoundToInt(OptionGroupSingleton<GuesserAmountSettings>.Instance.GuesserGamemodeCrewNumber));
+            assignGuesserGamemodeToPlayers(neutralPlayer, Mathf.RoundToInt(OptionGroupSingleton<GuesserAmountSettings>.Instance.GuesserGamemodeNeutralNumber), OptionGroupSingleton<GuesserForceSettings>.Instance.GuesserForceJackalGuesser, OptionGroupSingleton<GuesserForceSettings>.Instance.GuesserForceThiefGuesser);
+            assignGuesserGamemodeToPlayers(impPlayer, Mathf.RoundToInt(OptionGroupSingleton<GuesserAmountSettings>.Instance.GuesserGamemodeImpNumber));
         }
 
         private static void assignGuesserGamemodeToPlayers(List<PlayerControl> playerList, int count, bool forceJackal = false, bool forceThief = false) {

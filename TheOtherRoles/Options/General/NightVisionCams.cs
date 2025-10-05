@@ -8,7 +8,7 @@ namespace TheOtherRoles.Options.General
     internal class NightVisionCams : AbstractOptionGroup
     {
         public override string GroupName => "Night Vision Cams";
-        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic;
+        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic || TORMapOptions.GameMode == CustomGamemodes.Guesser;
         public override uint GroupPriority => 2;
 
         [ModdedToggleOption("Cams Switch To Night Vision If Lights Are Off")]

@@ -519,19 +519,6 @@ namespace TheOtherRoles.CustomGameModes {
             __instance.GetComponent<SpriteRenderer>().sprite = null;
         }
 
-        [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
-        [HarmonyPostfix]
-        public static void MapSetPostfix() {  // Make sure the map in the settings is in sync with the map from li
-            if (TORMapOptions.GameMode != CustomGamemodes.PropHunt && TORMapOptions.GameMode != CustomGamemodes.HideNSeek || AmongUsClient.Instance.IsGameStarted) return;
-            int? map = GameOptionsManager.Instance?.currentGameOptions?.MapId;
-            if (map == null) return;
-            if (map > 3) map--;
-            if (TORMapOptions.GameMode == CustomGamemodes.HideNSeek)
-                if (CustomOptionHolder.hideNSeekMap.selection != map)
-                    CustomOptionHolder.hideNSeekMap.updateSelection((int)map);
-        }
-
-
         [HarmonyPatch(typeof(MapConsole), nameof(MapConsole.CanUse))]
         [HarmonyPostfix]
         public static void AdminCanUsePostfix(MapConsole __instance, NetworkedPlayerInfo pc, ref bool canUse, ref bool couldUse, ref float __result) {

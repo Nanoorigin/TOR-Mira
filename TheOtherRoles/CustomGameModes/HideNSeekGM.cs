@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using MiraAPI.GameOptions;
 using TheOtherRoles.Objects;
+using TheOtherRoles.Options.HideNSeek;
 using UnityEngine;
 
 namespace TheOtherRoles.CustomGameModes {
@@ -43,15 +45,15 @@ namespace TheOtherRoles.CustomGameModes {
             isWaitingTimer = true;
             startTime = DateTime.UtcNow;
 
-            timer = CustomOptionHolder.hideNSeekTimer.getFloat() * 60;
-            hunterVision = CustomOptionHolder.hideNSeekHunterVision.getFloat();
-            huntedVision = CustomOptionHolder.hideNSeekHuntedVision.getFloat();
-            taskWinPossible = CustomOptionHolder.hideNSeekTaskWin.getBool();
-            taskPunish = CustomOptionHolder.hideNSeekTaskPunish.getFloat();
-            impNumber = Mathf.RoundToInt(CustomOptionHolder.hideNSeekHunterCount.getFloat());
-            canSabotage = CustomOptionHolder.hideNSeekCanSabotage.getBool();
-            killCooldown = CustomOptionHolder.hideNSeekKillCooldown.getFloat();
-            hunterWaitingTime = CustomOptionHolder.hideNSeekHunterWaiting.getFloat();
+            timer = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekTimer * 60;
+            hunterVision = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHunterVision;
+            huntedVision = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHuntedVision;
+            taskWinPossible = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekTaskWin;
+            taskPunish = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekTaskPunish;
+            impNumber = Mathf.RoundToInt(OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHunterCount);
+            canSabotage = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekCanSabotage;
+            killCooldown = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekKillCooldown;
+            hunterWaitingTime = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHunterWaiting;
 
             Hunter.clearAndReload();
             Hunted.clearAndReload();
@@ -103,16 +105,16 @@ namespace TheOtherRoles.CustomGameModes {
             lightActive = new List<byte>();
             arrowActive = false;
 
-            lightCooldown = CustomOptionHolder.hunterLightCooldown.getFloat();
-            lightDuration = CustomOptionHolder.hunterLightDuration.getFloat();
-            lightVision = CustomOptionHolder.hunterLightVision.getFloat();
-            lightPunish = CustomOptionHolder.hunterLightPunish.getFloat();
-            AdminCooldown = CustomOptionHolder.hunterAdminCooldown.getFloat();
-            AdminDuration = CustomOptionHolder.hunterAdminDuration.getFloat();
-            AdminPunish = CustomOptionHolder.hunterAdminPunish.getFloat();
-            ArrowCooldown = CustomOptionHolder.hunterArrowCooldown.getFloat();
-            ArrowDuration = CustomOptionHolder.hunterArrowDuration.getFloat();
-            ArrowPunish = CustomOptionHolder.hunterArrowPunish.getFloat();
+            lightCooldown = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterLightCooldown;
+            lightDuration = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterLightDuration;
+            lightVision = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterLightVision;
+            lightPunish = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterLightPunish;
+            AdminCooldown = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterAdminCooldown;
+            AdminDuration = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterAdminDuration;
+            AdminPunish = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterAdminPunish;
+            ArrowCooldown = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterArrowCooldown;
+            ArrowDuration = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterArrowDuration;
+            ArrowPunish = OptionGroupSingleton<HunterRolesSettings>.Instance.HunterArrowPunish;
         }
     }
 
@@ -128,10 +130,10 @@ namespace TheOtherRoles.CustomGameModes {
             timeshieldActive = new List<byte>();
             taskPunish = false;
 
-            shieldCount = Mathf.RoundToInt(CustomOptionHolder.huntedShieldNumber.getFloat());
-            shieldCooldown = CustomOptionHolder.huntedShieldCooldown.getFloat();
-            shieldDuration = CustomOptionHolder.huntedShieldDuration.getFloat();
-            shieldRewindTime = CustomOptionHolder.huntedShieldRewindTime.getFloat();
+            shieldCount = Mathf.RoundToInt(OptionGroupSingleton<HuntedShieldSettings>.Instance.HuntedShieldNumber);
+            shieldCooldown = OptionGroupSingleton<HuntedShieldSettings>.Instance.HuntedShieldCooldown;
+            shieldDuration = OptionGroupSingleton<HuntedShieldSettings>.Instance.HuntedShieldDuration;
+            shieldRewindTime = OptionGroupSingleton<HuntedShieldSettings>.Instance.HuntedShieldRewindTime;
         }
     }
 }

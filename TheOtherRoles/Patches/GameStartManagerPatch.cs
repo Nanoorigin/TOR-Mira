@@ -254,7 +254,6 @@ namespace TheOtherRoles.Patches {
                     }
                     if (continueStart && (TORMapOptions.GameMode == CustomGamemodes.HideNSeek || TORMapOptions.GameMode == CustomGamemodes.PropHunt) && GameOptionsManager.Instance.CurrentGameOptions.MapId != 6) {
                         byte mapId = 0;
-                        if (TORMapOptions.GameMode == CustomGamemodes.HideNSeek) mapId = (byte)CustomOptionHolder.hideNSeekMap.getSelection();
                         if (mapId >= 3) mapId++;
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DynamicMapOption, Hazel.SendOption.Reliable, -1);
                         writer.Write(mapId);

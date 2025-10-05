@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
-using HarmonyLib;
-using TheOtherRoles.Utilities;
-using static TheOtherRoles.TheOtherRoles;
-using UnityEngine;
-using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
+using HarmonyLib;
+using MiraAPI.GameOptions;
+using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Options.HideNSeek;
+using TheOtherRoles.Utilities;
+using UnityEngine;
+using static TheOtherRoles.TheOtherRoles;
 
 namespace TheOtherRoles.Patches {
 
@@ -131,9 +133,9 @@ namespace TheOtherRoles.Patches {
                 if (GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks > normalTaskCount) GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = normalTaskCount;
                 if (GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks > longTaskCount) GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = longTaskCount;
             } else {
-                GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekCommonTasks.getFloat());
-                GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekShortTasks.getFloat());
-                GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekLongTasks.getFloat());
+                GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks = Mathf.RoundToInt(OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekCommonTasks);
+                GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = Mathf.RoundToInt(OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekShortTasks);
+                GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = Mathf.RoundToInt(OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekLongTasks);
             }
 
             MapBehaviourPatch.VentNetworks.Clear();

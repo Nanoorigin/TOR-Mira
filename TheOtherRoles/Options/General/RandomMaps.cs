@@ -8,7 +8,7 @@ namespace TheOtherRoles.Options.General
     internal class RandomMaps : AbstractOptionGroup
     {
         public override string GroupName => "Random Maps";
-        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic;
+        public override Func<bool> GroupVisible => () => TORMapOptions.GameMode == CustomGamemodes.Classic || TORMapOptions.GameMode == CustomGamemodes.Guesser;
         public override uint GroupPriority => 3;
 
         [ModdedToggleOption("Play On A Random Map")]
@@ -55,6 +55,5 @@ namespace TheOtherRoles.Options.General
             {
                 Visible = () => OptionGroupSingleton<RandomMaps>.Instance.DynamicMap
             };
-
     }
 }

@@ -17,6 +17,7 @@ using Reactor.Networking.Attributes;
 using Reactor.Utilities;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Modules.CustomHats;
+using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles

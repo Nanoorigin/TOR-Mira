@@ -1,14 +1,15 @@
-using HarmonyLib;
 using System;
-using static TheOtherRoles.TheOtherRoles;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 using Hazel;
-
-using TheOtherRoles.Utilities;
+using MiraAPI.GameOptions;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
+using TheOtherRoles.Options.HideNSeek;
+using TheOtherRoles.Utilities;
+using UnityEngine;
+using static TheOtherRoles.TheOtherRoles;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
@@ -107,7 +108,7 @@ namespace TheOtherRoles.Patches {
                     FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(HideNSeek.hunterWaitingTime, new Action<float>((p) => {
                         if (p == 1f) {
                             player.moveable = true;
-                            HideNSeek.timer = CustomOptionHolder.hideNSeekTimer.getFloat() * 60;
+                            HideNSeek.timer = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekTimer * 60;
                             HideNSeek.isWaitingTimer = false;
                         }
                     })));
@@ -139,9 +140,9 @@ namespace TheOtherRoles.Patches {
                 ShipStatusPatch.originalNumImpVisionOption = GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod;
                 ShipStatusPatch.originalNumKillCooldownOption = GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown;
 
-                GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod = CustomOptionHolder.hideNSeekHunterVision.getFloat();
-                GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod = CustomOptionHolder.hideNSeekHuntedVision.getFloat();
-                GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown = CustomOptionHolder.hideNSeekKillCooldown.getFloat();
+                GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHunterVision;
+                GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekHuntedVision;
+                GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown = OptionGroupSingleton<GeneralHideNSeekSettings>.Instance.HideNSeekKillCooldown;
             }
         }
     }
