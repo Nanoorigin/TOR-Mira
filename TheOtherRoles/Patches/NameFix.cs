@@ -1,19 +1,14 @@
 using HarmonyLib;
-using AmongUs.Data;
-using AmongUs.Data.Legacy;
+using UnityEngine;
 
-namespace TheOtherRoles.Patches {
-    [Harmony]
-    public class AccountManagerPatch {
-        [HarmonyPatch(typeof(AccountManager), nameof(AccountManager.RandomizeName))]
-        public static class RandomizeNamePatch {
-            static bool Prefix(AccountManager __instance) {  
-                if (LegacySaveManager.lastPlayerName == null)
-                    return true;
-                DataManager.Player.Customization.Name = LegacySaveManager.lastPlayerName;
-		        __instance.accountTab.UpdateNameDisplay();
-                return false; // Don't execute original
-            }
-        }
+namespace TheOtherRoles.Patches;
+
+[HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetName))]
+public static class PlayerControlSetNamePatch
+{
+    public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] string name)
+    {
+        // TODO: apply name color based on role (Snitch, Spy, etc.)
+        // TODO: apply name tags for special roles
     }
 }

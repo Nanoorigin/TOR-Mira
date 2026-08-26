@@ -1,0 +1,18 @@
+using MiraAPI.GameOptions;
+using MiraAPI.GameOptions.Attributes;
+using MiraAPI.GameOptions.OptionTypes;
+using MiraAPI.Utilities;
+using TheOtherRoles.Roles.Impostor;
+
+namespace TheOtherRoles.Options.Roles.Impostor;
+
+public sealed class CamouflagerOptions : AbstractRoleOptionGroup<CamouflagerRole>
+{
+    public override string GroupName => "Camouflager";
+
+    [ModdedNumberOption("Camouflager Cooldown", 10f, 60f, 2.5f, MiraNumberSuffixes.Seconds)]
+    public float Cooldown { get; set; } = 30f;
+
+    [ModdedNumberOption("Camo Duration", 1f, 20f, 0.5f, MiraNumberSuffixes.Seconds)]
+    public float CamoDuration { get; set; } = 10f;
+}

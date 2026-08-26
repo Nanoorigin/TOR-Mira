@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using UnityEngine;
 
 namespace TheOtherRoles;
 
@@ -18,14 +17,14 @@ public static class Il2CppHelpers
             Cast = lambda.Compile();
         }
     }
-    
+
     public static T CastFast<T>(this Il2CppObjectBase obj) where T : Il2CppObjectBase
     {
         if (obj is T casted) return casted;
         return obj.Pointer.CastFast<T>();
     }
-    
-    public static T CastFast<T>(this IntPtr ptr)where T : Il2CppObjectBase
+
+    public static T CastFast<T>(this IntPtr ptr) where T : Il2CppObjectBase
     {
         return CastHelper<T>.Cast(ptr);
     }

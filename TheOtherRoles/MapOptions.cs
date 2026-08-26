@@ -1,63 +1,60 @@
+using System;
 using System.Collections.Generic;
-using MiraAPI.GameOptions;
-using TheOtherRoles.Options.General;
+using System.Linq;
 using UnityEngine;
 
-namespace TheOtherRoles{
-    static class TORMapOptions {
-        // Set values
-        public static int maxNumberOfMeetings = 10;
-        public static bool blockSkippingInEmergencyMeetings = false;
-        public static bool noVoteIsSelfVote = false;
-        public static bool hidePlayerNames = false;
-        public static bool ghostsSeeRoles = true;
-        public static bool ghostsSeeModifier = true;
-        public static bool ghostsSeeInformation = true;
-        public static bool ghostsSeeVotes = true;
-        public static bool showRoleSummary = true;
-        public static bool allowParallelMedBayScans = false;
-        public static bool showLighterDarker = true;
-        public static bool enableSoundEffects = true;
-        public static bool shieldFirstKill = false;
-        public static bool ShowVentsOnMap = true;
-        public static bool ShowChatNotifications = true;
-        public static CustomGamemodes GameMode = CustomGamemodes.Classic;
+namespace TheOtherRoles;
 
-        // Updating values
-        public static int meetingsCount = 0;
-        public static List<SurvCamera> camerasToAdd = new List<SurvCamera>();
-        public static List<Vent> ventsToSeal = new List<Vent>();
-        public static Dictionary<byte, PoolablePlayer> playerIcons = new Dictionary<byte, PoolablePlayer>();
-        public static string firstKillName;
-        public static PlayerControl firstKillPlayer;
+public static class TORMapOptions
+{
+    public static int gameMode = 0;
 
-        public static void clearAndReloadMapOptions() {
-            meetingsCount = 0;
-            camerasToAdd = new List<SurvCamera>();
-            ventsToSeal = new List<Vent>();
-            playerIcons = new Dictionary<byte, PoolablePlayer>(); ;
+    public static bool allowParallelMedbayScans = false;
+    public static bool showGraveyard = false;
+    public static bool taskPanelClassic = false;
 
-            maxNumberOfMeetings = Mathf.RoundToInt(OptionGroupSingleton<GameplaySettings>.Instance.MaxNumberOfMeetings);
-            blockSkippingInEmergencyMeetings = OptionGroupSingleton<GameplaySettings>.Instance.BlockSkippingInEmergencyMeetings;
-            noVoteIsSelfVote = OptionGroupSingleton<GameplaySettings>.Instance.NoVoteIsSelfVote;
-            hidePlayerNames = OptionGroupSingleton<GameplaySettings>.Instance.HidePlayerNames;
-            allowParallelMedBayScans = OptionGroupSingleton<GameplaySettings>.Instance.AllowParallelMedBayScans;
-            shieldFirstKill = OptionGroupSingleton<GameplaySettings>.Instance.ShieldFirstKill;
-            firstKillPlayer = null;
-        }
+    public static float discussionsTime = 120f;
+    public static float votingTime = 120f;
+    public static float playerSpeed = 1.25f;
+    public static float killCooldown = 30f;
+    public static int killDistance = 1;
+    public static int taskBarUpdate = 0;
+    public static bool visualTasks = true;
+    public static bool confirmImpostor = true;
+    public static int emergencyCooldown = 30;
+    public static int emergencyCount = 1;
+    public static int maxPlayers = 15;
+    public static int DiscussionTime = 120;
+    public static int VotingTime = 120;
+    public static bool skipVote = true;
+    public static bool noVoteIsDead = false;
+    public static bool anonymousVotes = false;
+    public static bool confirmEjects = true;
+    public static int ejectPercentage = 0;
 
-        public static void reloadPluginOptions() {
-            ghostsSeeRoles = TheOtherRolesPlugin.GhostsSeeRoles.Value;
-            ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value;
-            ghostsSeeInformation = TheOtherRolesPlugin.GhostsSeeInformation.Value;
-            ghostsSeeVotes = TheOtherRolesPlugin.GhostsSeeVotes.Value;
-            showRoleSummary = TheOtherRolesPlugin.ShowRoleSummary.Value;
-            showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value;
-            enableSoundEffects = TheOtherRolesPlugin.EnableSoundEffects.Value;
-            ShowVentsOnMap = TheOtherRolesPlugin.ShowVentsOnMap.Value;
-            ShowChatNotifications = TheOtherRolesPlugin.ShowChatNotifications.Value;
+    public static bool isHideAndSeek = false;
+    public static bool allowVentingForCrewmates = false;
+    public static bool killCrewmatesBeforeEmergency = false;
+    public static bool validKillTarget = false;
 
-            //Patches.ShouldAlwaysHorseAround.isHorseMode = TheOtherRolesPlugin.EnableHorseMode.Value;
-        }
+    public static bool mapHack = false;
+    public static bool miniCrewmate = false;
+    public static bool disableMinigame = false;
+    public static bool gangnamStyle = false;
+    public static bool disableTaskYP = false;
+
+    public static bool enableSoundEffects = true;
+
+    public static void ClearAndReload()
+    {
+        gameMode = 0;
     }
+}
+
+public enum CustomGameModes
+{
+    Classic,
+    Guesser,
+    HideNSeek,
+    PropHunt
 }

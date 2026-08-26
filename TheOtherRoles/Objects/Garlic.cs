@@ -1,60 +1,34 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheOtherRoles.Objects {
-    class Garlic {
-        public static List<Garlic> garlics = new List<Garlic>();
+namespace TheOtherRoles;
 
-        public GameObject garlic;
-        private GameObject background;
+public class Garlic
+{
+    private static Sprite sprite;
+    public static List<GameObject> garlics = new();
 
-        private static Sprite garlicSprite;
-        public static Sprite getGarlicSprite() {
-            if (garlicSprite) return garlicSprite;
-            garlicSprite = TORHelpers.loadSpriteFromResources("TheOtherRoles.Resources.Garlic.png", 300f);
-            return garlicSprite;
-        }
+    public Garlic(Vector3 position)
+    {
+        var garlicObject = new GameObject("Garlic");
+        garlicObject.layer = 11;
+        var renderer = garlicObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = getSprite();
+        renderer.material = new Material(Shader.Find("Sprites/Default"));
+        garlicObject.transform.position = position;
+        garlics.Add(garlicObject);
+    }
 
-        private static Sprite backgroundSprite;
-        public static Sprite getBackgroundSprite() {
-            if (backgroundSprite) return backgroundSprite;
-            backgroundSprite = TORHelpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicBackground.png", 60f);
-            return backgroundSprite;
-        }
+    public static void clearGarlics()
+    {
+        foreach (var go in garlics)
+            if (go) UnityEngine.Object.Destroy(go);
+        garlics.Clear();
+    }
 
-        public Garlic(Vector2 p) {
-            garlic = new GameObject("Garlic"){layer = 11};
-            garlic.AddSubmergedComponent(SubmergedCompatibility.Classes.ElevatorMover);
-            background = new GameObject("Background"){layer = 11};
-            background.transform.SetParent(garlic.transform);
-            Vector3 position = new Vector3(p.x, p.y, p.y / 1000 + 0.001f); // just behind player
-            garlic.transform.position = position;
-            background.transform.localPosition = new Vector3(0 , 0, -1f); // before player
-
-            var garlicRenderer = garlic.AddComponent<SpriteRenderer>();
-            garlicRenderer.sprite = getGarlicSprite();
-            var backgroundRenderer = background.AddComponent<SpriteRenderer>();
-            backgroundRenderer.sprite = getBackgroundSprite();
-
-
-            garlic.SetActive(true);
-            garlics.Add(this);
-        }
-
-        public static void clearGarlics() {
-            garlics = new List<Garlic>();
-        }
-
-        public static void UpdateAll() {
-            foreach (Garlic garlic in garlics) {
-                if (garlic != null)
-                    garlic.Update();
-            }
-        }
-
-        public void Update() {
-            if (background != null)
-                background.transform.Rotate(Vector3.forward * 6 * Time.fixedDeltaTime);
-        }
+    private static Sprite getSprite()
+    {
+        if (sprite) return sprite;
+        sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Garlic.png", 500f);
+        return sprite;
     }
 }
